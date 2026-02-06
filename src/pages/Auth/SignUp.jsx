@@ -8,7 +8,6 @@ import ProfileIcon from "../../Components/ProfileIcon.jsx";
 import axiosInstance from "../../Utils/axiosInstance.js";
 import { API_PATHS } from "../../Utils/apiPath.js";
 import { UserContext } from "../../context/userContext.jsx";
-import uploadImage from "../../Utils/uploadImage.js";
 
 const SignUp = () => {
   const [name, setName] = useState("");
