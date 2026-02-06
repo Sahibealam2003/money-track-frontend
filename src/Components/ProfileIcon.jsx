@@ -1,7 +1,7 @@
 //Select Profile Image
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { LuUser, LuUpload, LuTrash } from "react-icons/lu";
-import { UserContext } from "../Context/userContext";
+import { UserContext } from "../context/userContext";
 import CharAvatar from "./Cards/CharAvatar";
 
 const ProfileIcon = ({ image, setImage, setIsImageRemoved }) => {

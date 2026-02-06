@@ -1,6 +1,6 @@
 //Edit Profile Image and name
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "../Context/userContext";
+import { UserContext } from "../context/userContext";
 import ProfileIcon from "./ProfileIcon";
 import { API_PATHS } from "../Utils/apiPath";
 import { convertToBase64 } from "../Utils/helper";

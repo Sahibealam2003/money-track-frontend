@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SIDE_MENU_DATA } from "../Utils/data";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../Context/userContext";
+import { UserContext } from "../context/userContext";
 import CharAvatar from "./Cards/CharAvatar";
 import ProfileEditModal from "./ProfileEditModal";
 
