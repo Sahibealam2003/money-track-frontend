@@ -1,19 +1,17 @@
-//SignUp Page
-import React, { use, useContext, useState } from "react";
+// SignUp Page
+import React, { useContext, useState } from "react";
 import AuthLayout from "../../Components/AuthLayout.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../Components/Input.jsx";
 import { validateEmail } from "../../Utils/helper.js";
-import ProfileIcon from "../../Components/ProfileIcon.jsx";
 import axiosInstance from "../../Utils/axiosInstance.js";
 import { API_PATHS } from "../../Utils/apiPath.js";
-import { UserContext } from "../../context/userContext.jsx";
+import { UserContext } from "../../Context/userContext.jsx";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profilePic, setProfilePic] = useState(null);
   const [error, setError] = useState(null);
   const { updateUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
@@ -39,19 +37,12 @@ const SignUp = () => {
 
     setError("");
     setLoading(true);
-    let profileImageUrl = "";
 
     try {
-      if (profilePic) {
-        const imgUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imgUploadRes.imageUrl || "";
-      }
-
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         name,
         email,
         password,
-        profileImageUrl,
       });
 
       const { token, user } = response.data;
@@ -62,7 +53,7 @@ const SignUp = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
+      if (error.response?.data?.message) {
         setError(error.response.data.message);
       } else {
         setError("Something went wrong. Please try again.");
@@ -76,20 +67,16 @@ const SignUp = () => {
     <AuthLayout>
       <div className="max-w-md -mt-4 mx-auto w-full px-6 flex flex-col">
         <div className="text-center">
-          <h3 className="text-3xl font-semibold text-gray-900 tracking-tight">
+          <h3 className="text-3xl mt-10 font-semibold text-gray-900 tracking-tight">
             Create an Account
           </h3>
-          <p className="mt-1 mb-2 text-sm text-gray-500">
+          <p className="mt-1 mb-10 text-sm text-gray-500">
             Sign up to start tracking your income and expenses.
           </p>
         </div>
 
         <form onSubmit={handleOnSignUp} className="space-y-1 flex flex-col">
-          <div className="flex justify-center -mb-5">
-            <ProfileIcon image={profilePic} setImage={setProfilePic} />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="md:col-span-2">
               <Input
                 value={name}
@@ -126,9 +113,13 @@ const SignUp = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`cursor-pointer w-full py-3 rounded-lg text-white text-sm font-medium tracking-wide shadow-md
-    ${loading ? "bg-violet-400 cursor-not-allowed" : "bg-violet-600 hover:bg-violet-700"}
-  `}
+            className={`w-full py-3 rounded-lg text-white text-sm font-medium shadow-md
+              ${
+                loading
+                  ? "bg-violet-400 cursor-not-allowed"
+                  : "bg-violet-600 hover:bg-violet-700"
+              }
+            `}
           >
             {loading ? "Creating Account..." : "SIGN UP"}
           </button>
@@ -137,7 +128,7 @@ const SignUp = () => {
             Already have an account?
             <Link
               to="/login"
-              className="ml-1 font-medium text-violet-600 hover:text-violet-700 hover:underline transition"
+              className="ml-1 font-medium text-violet-600 hover:underline"
             >
               Login
             </Link>
