@@ -1,14 +1,15 @@
 //Layout of dashboard
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Navbar from "./Navbar";
 import SideMenu from "./SideMenu";
 import { UserContext } from "../context/userContext";
-
+import { Navigate } from "react-router-dom";
 const DashboardLayout = ({ children, activeMenu }) => {
   const { user } = useContext(UserContext);
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(true);
 
-
+ if (!user) {
+    return <Navigate to="/login" replace />;
+  }
   return (
     <div className="bg-gray-50 overflow-hidden ">
       <div className="fixed top-0 left-0 right-0 h-16 z-20">
